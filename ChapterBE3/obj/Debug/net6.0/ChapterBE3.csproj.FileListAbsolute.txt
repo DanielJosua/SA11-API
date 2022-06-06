@@ -57,3 +57,4 @@ D:\VSvisual\SA11\ChapterBE3\ChapterBE3\obj\Debug\net6.0\ChapterBE3.dll
 D:\VSvisual\SA11\ChapterBE3\ChapterBE3\obj\Debug\net6.0\ref\ChapterBE3.dll
 D:\VSvisual\SA11\ChapterBE3\ChapterBE3\obj\Debug\net6.0\ChapterBE3.pdb
 D:\VSvisual\SA11\ChapterBE3\ChapterBE3\obj\Debug\net6.0\ChapterBE3.genruntimeconfig.cache
+D:\VSvisual\SA11\ChapterBE3\ChapterBE3\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

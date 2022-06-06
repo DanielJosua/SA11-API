@@ -1,25 +1,19 @@
-﻿using ChapterBE3.Models;
-using ChapterBE3.Repositories;
-using Microsoft.AspNetCore.Authorization;
+﻿using ChapterBE3.Interfaces;
+using ChapterBE3.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChapterBE3.Controllers
 {
     [Produces("application/json")]
-
     [Route("api/[controller]")]
-
     [ApiController]
-
-    [Authorize(Roles = "1")]
-    public class LivroController : ControllerBase
+    public class UsuariosController : ControllerBase
     {
-        private readonly LivroRepository _livroRepository;
-
-        public LivroController(LivroRepository livroRepository)
+        private readonly IUsuarioRepository _iUsuarioRepository;
+        public UsuariosController(IUsuarioRepository usuarioRepository)
         {
-            _livroRepository = livroRepository;
+            _iUsuarioRepository = usuarioRepository;
         }
 
         [HttpGet]
@@ -27,11 +21,12 @@ namespace ChapterBE3.Controllers
         {
             try
             {
-                return Ok(_livroRepository.Listar());
+                return Ok(_iUsuarioRepository.Listar());
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new Exception(e.Message);
+
+                throw;
             }
         }
 
@@ -40,15 +35,12 @@ namespace ChapterBE3.Controllers
         {
             try
             {
-                Livro livro = _livroRepository.BuscaPorId(id);
+                Usuario usuarioEncontrado = _iUsuarioRepository.BuscarPorId(id);
 
-                if (livro == null)
-                {
+                if (usuarioEncontrado == null)
                     return NotFound();
-                }
 
-                return Ok(livro);
-
+                return Ok(usuarioEncontrado);
             }
             catch (Exception)
             {
@@ -58,11 +50,11 @@ namespace ChapterBE3.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastrar(Livro livro)
+        public IActionResult Cadastrar(Usuario usuario)
         {
             try
             {
-                _livroRepository.Cadastrar(livro);
+                _iUsuarioRepository.Cadastrar(usuario);
 
                 return StatusCode(201);
             }
@@ -74,13 +66,13 @@ namespace ChapterBE3.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Atualizar(int id, Livro livro)
+        public IActionResult Alterar(int id, Usuario usuario)
         {
             try
             {
-                _livroRepository.Atualizar(id, livro);
+                _iUsuarioRepository.Atualizar(id, usuario);
 
-                return StatusCode(204);
+                return Ok("Usuario Alterado");
             }
             catch (Exception)
             {
@@ -94,9 +86,9 @@ namespace ChapterBE3.Controllers
         {
             try
             {
-                _livroRepository.Deletar(id);
+                _iUsuarioRepository.Deletar(id);
 
-                return StatusCode(204);
+                return Ok("Usuario Deletado");
             }
             catch (Exception)
             {
@@ -104,6 +96,5 @@ namespace ChapterBE3.Controllers
                 throw;
             }
         }
-
     }
 }
